@@ -1,11 +1,14 @@
+import datetime
+
 from django.db import models
+from django.utils import timezone
 
 
 class Post(models.Model):
     content = models.CharField(max_length=255)
-    user_id = models.ForeignKey(
+    """ user_id = models.ForeignKey(
         User,
-        on_delete=models.CASCADE)
+        on_delete=models.CASCADE) """
     likes = models.IntegerField(default=0)
     updated = models.DateTimeField('Post updated at')
     created = models.DateTimeField(
@@ -13,15 +16,24 @@ class Post(models.Model):
         verbose_name='Post created at'
     )
 
+    def readable_created(self):
+        diff = timezone.now() - self.created
+
+        if (diff.total_seconds() / 3600) <= 24:
+            return "{} h".format(round(diff.total_seconds() / 3600))
+        else:
+            return created
+
+
     def __str__(self):
         return self.content
 
 
 class Comment(models.Model):
     content = models.CharField(max_length=255)
-    user_id = models.ForeignKey(
+    """ user_id = models.ForeignKey(
         User,
-        on_delete=models.CASCADE)
+        on_delete=models.CASCADE) """
     post_id = models.ForeignKey(
         Post,
         on_delete=models.CASCADE
@@ -32,15 +44,23 @@ class Comment(models.Model):
         verbose_name='Comment created at'
     )
 
+    def readable_created(self):
+        diff = timezone.now() - self.created
+        
+        if (diff.total_seconds() / 3600) <= 24:
+            return "{} h".format(round(diff.total_seconds() / 3600))
+        else:
+            return created
+
     def __str__(self):
         return self.content
 
 
 class Retweet(models.Model):
-    user_id = models.ForeignKey(
+    """ user_id = models.ForeignKey(
         User,
         on_delete=models.CASCADE
-    )
+    ) """
     post = models.ForeignKey(
         Post,
         on_delete=models.CASCADE
@@ -49,6 +69,14 @@ class Retweet(models.Model):
         auto_now=True,
         verbose_name='Retweeted at'
     )
+
+    def readable_created(self):
+        diff = timezone.now() - self.created
+        
+        if (diff.total_seconds() / 3600) <= 24:
+            return "{} h".format(round(diff.total_seconds() / 3600))
+        else:
+            return created
 
     def __str__(self):
         return self.post.content
