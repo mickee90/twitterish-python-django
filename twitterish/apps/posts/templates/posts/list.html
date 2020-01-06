@@ -15,7 +15,7 @@
                     </div>
                         <div class="comments"><img src="{% static "img/icon_comment.png" %}" alt="comment" class="post-icon icon-comment" /> 1</div>
                         <div class="retweets"><img src="{% static "img/icon_retweet.png" %}" alt="retweet" class="post-icon icon-retweet" /> 2</div>
-                        <div class="likes"><img src="{% static "img/icon_like.png" %}" alt="like" class="post-icon icon-like" /> 200</div>
+                        <div class="likes"><img src="{% static "img/icon_like.png" %}" alt="like" class="post-icon icon-like" /> {{ post.likes }}</div>
                         <div class="share"><img src="{% static "img/icon_upload.png" %}" alt="share" class="post-icon icon-upload" /></div>
                     </div>
                 </div>

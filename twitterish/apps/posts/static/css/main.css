@@ -58,6 +58,11 @@ ul, li {
     padding: 0 10px 10px;
     border-bottom: 10px solid #263340;
 }
+.main .create-post-box .attachments .attachment-icon {
+    width: 25px;
+    height: 25px;
+    margin-right: 5px;
+}
 .widgets { 
     grid-area: 1 / 5 / 2 / 7; 
     padding-top: 10px;

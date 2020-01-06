@@ -32,7 +32,12 @@
             <div class="create-post-box">
                 <input type="text" class="create-post form-control mb-3" placeholder="What's happening?" max="255">
                 <div class="toolbar d-flex justify-content-between">
-                    <div class="attachments">[image] [gif] [poll] [emojis]</div>
+                    <div class="attachments">
+                        <img src="{% static "img/icon_img.png" %}" alt="icon-emoji" class="attachment-icon icon-img" />
+                        <img src="{% static "img/icon_gif.png" %}" alt="icon-gif" class="attachment-icon icon-gif" />
+                        <img src="{% static "img/icon_statistic.png" %}" alt="icon-statistic" class="attachment-icon icon-statistic" />
+                        <img src="{% static "img/icon_emoji.png" %}" alt="icon-emoji" class="attachment-icon icon-emoji" />
+                    </div>
                     <input type="submit" class="btn btn-primary float-right" value="tweet">
                 </div>
             </div>
