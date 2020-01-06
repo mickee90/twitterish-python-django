@@ -6,11 +6,14 @@ from django.utils import timezone
 
 class Post(models.Model):
     content = models.CharField(max_length=255)
-    """ user_id = models.ForeignKey(
+    """ user = models.ForeignKey(
         User,
         on_delete=models.CASCADE) """
     likes = models.IntegerField(default=0)
-    updated = models.DateTimeField('Post updated at')
+    updated = models.DateTimeField(
+        auto_now=True,
+        verbose_name='Post updated at'
+    )
     created = models.DateTimeField(
         auto_now=True,
         verbose_name='Post created at'
@@ -24,17 +27,16 @@ class Post(models.Model):
         else:
             return created
 
-
     def __str__(self):
         return self.content
 
 
 class Comment(models.Model):
     content = models.CharField(max_length=255)
-    """ user_id = models.ForeignKey(
+    """ user = models.ForeignKey(
         User,
         on_delete=models.CASCADE) """
-    post_id = models.ForeignKey(
+    post = models.ForeignKey(
         Post,
         on_delete=models.CASCADE
     )
@@ -46,7 +48,7 @@ class Comment(models.Model):
 
     def readable_created(self):
         diff = timezone.now() - self.created
-        
+
         if (diff.total_seconds() / 3600) <= 24:
             return "{} h".format(round(diff.total_seconds() / 3600))
         else:
@@ -57,7 +59,7 @@ class Comment(models.Model):
 
 
 class Retweet(models.Model):
-    """ user_id = models.ForeignKey(
+    """ user = models.ForeignKey(
         User,
         on_delete=models.CASCADE
     ) """
@@ -72,7 +74,7 @@ class Retweet(models.Model):
 
     def readable_created(self):
         diff = timezone.now() - self.created
-        
+
         if (diff.total_seconds() / 3600) <= 24:
             return "{} h".format(round(diff.total_seconds() / 3600))
         else:

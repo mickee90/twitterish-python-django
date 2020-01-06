@@ -1,77 +1,98 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Twitterish</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static "css/main.css" %}">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Twitterish</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+  <link rel="stylesheet" href="{% static "css/main.css" %}">
 </head>
+
 <body>
-    <div class="layout container">
-        <nav class="nav pr-3">
-            <ul class="menu">
-                <li class="menu-item"><a href="#" class="nav-link">Twitterish</a></li>
-                <li class="menu-item"><a href="#" class="nav-link">Home</a></li>
-                <li class="menu-item"><a href="#" class="nav-link">Explore</a></li>
-                <li class="menu-item"><a href="#" class="nav-link">Notifications</a></li>
-                <li class="menu-item"><a href="#" class="nav-link">Messages</a></li>
-                <li class="menu-item"><a href="#" class="nav-link">Bookmarks</a></li>
-                <li class="menu-item"><a href="#" class="nav-link">Lists</a></li>
-                <li class="menu-item"><a href="#" class="nav-link">Profile</a></li>
-                <li class="menu-item"><a href="#" class="nav-link">More</a></li>
-                <li class="menu-item btn"><a href="#" class="btn btn-primary">Tweet</a></li>
-            </ul>
-        </nav>
-        <section class="main">
-            <div class="header-box">
-                <h1>Home</h1>
+  <div class="layout container">
+    <nav class="nav pr-3">
+      <ul class="menu">
+        <li class="menu-item"><a href="#" class="nav-link">Twitterish</a></li>
+        <li class="menu-item"><a href="#" class="nav-link">Home</a></li>
+        <li class="menu-item"><a href="#" class="nav-link">Explore</a></li>
+        <li class="menu-item">
+          <a href="#" class="nav-link">Notifications</a>
+        </li>
+        <li class="menu-item"><a href="#" class="nav-link">Messages</a></li>
+        <li class="menu-item"><a href="#" class="nav-link">Bookmarks</a></li>
+        <li class="menu-item"><a href="#" class="nav-link">Lists</a></li>
+        <li class="menu-item"><a href="#" class="nav-link">Profile</a></li>
+        <li class="menu-item"><a href="#" class="nav-link">More</a></li>
+        <li class="menu-item btn">
+          <a href="#" class="btn btn-primary">Tweet</a>
+        </li>
+      </ul>
+    </nav>
+    <section class="main">
+      <div class="header-box">
+        <h1>Home</h1>
+      </div>
+      <div class="create-post-box">
+        <form action="/posts/create" method="POST" class="create-post">
+          {% csrf_token %}
+          <input type="text" class="create-post form-control mb-3" placeholder="What's happening?" name="content"
+            max="255" />
+          <div class="toolbar d-flex justify-content-between">
+            <div class="attachments">
+              <img src="{% static "img/icon_img.png" %}" alt="icon-emoji" class="attachment-icon icon-img" />
+              <img src="{% static "img/icon_gif.png" %}" alt="icon-gif" class="attachment-icon icon-gif" />
+              <img src="{% static "img/icon_statistic.png" %}" alt="icon-statistic"
+                class="attachment-icon icon-statistic" />
+              <img src="{% static "img/icon_emoji.png" %}" alt="icon-emoji" class="attachment-icon icon-emoji" />
             </div>
-            <div class="create-post-box">
-                <input type="text" class="create-post form-control mb-3" placeholder="What's happening?" max="255">
-                <div class="toolbar d-flex justify-content-between">
-                    <div class="attachments">
-                        <img src="{% static "img/icon_img.png" %}" alt="icon-emoji" class="attachment-icon icon-img" />
-                        <img src="{% static "img/icon_gif.png" %}" alt="icon-gif" class="attachment-icon icon-gif" />
-                        <img src="{% static "img/icon_statistic.png" %}" alt="icon-statistic" class="attachment-icon icon-statistic" />
-                        <img src="{% static "img/icon_emoji.png" %}" alt="icon-emoji" class="attachment-icon icon-emoji" />
-                    </div>
-                    <input type="submit" class="btn btn-primary float-right" value="tweet">
-                </div>
-            </div>
-                {% block content %}{% endblock %}
-        </section>
-        <aside class="widgets pl-3">
-            <div class="search-box">
-                <input type="text" class="search form-control" placeholder="Search Twitter"> 
-            </div>
+            <input type="submit" class="btn btn-primary float-right" value="tweet" />
+          </div>
+        </form>
+      </div>
+      {% block content %}{% endblock %}
+    </section>
+    <aside class="widgets pl-3">
+      <div class="search-box">
+        <input type="text" class="search form-control" placeholder="Search Twitter" />
+      </div>
 
-            <div class="widget-box">
-                <div class="header">Trends for you</div>
-                <ul class="list">
-                    <li class="list-item">Trend #1</li>
-                    <li class="list-item">Trend #2</li>
-                    <li class="list-item">Trend #3</li>
-                    <li class="list-item">Trend #4</li>
-                    <li class="list-item">Trend #5</li>
-                </ul>
-            </div>
+      <div class="widget-box">
+        <div class="header">Trends for you</div>
+        <ul class="list">
+          <li class="list-item">Trend #1</li>
+          <li class="list-item">Trend #2</li>
+          <li class="list-item">Trend #3</li>
+          <li class="list-item">Trend #4</li>
+          <li class="list-item">Trend #5</li>
+        </ul>
+      </div>
 
-            <div class="widget-box">
-                <div class="header">Who to follow</div>
-                <ul class="list">
-                    <li class="list-item d-flex justify-content-between">Person #1 <a href="#" class="btn btn-outline-primary">Follow</a></li>
-                    <li class="list-item d-flex justify-content-between">Person #2 <a href="#" class="btn btn-outline-primary">Follow</a></li>
-                    <li class="list-item d-flex justify-content-between">Person #3 <a href="#" class="btn btn-outline-primary">Follow</a></li>
-                    <li class="list-item d-flex justify-content-between">Person #4 <a href="#" class="btn btn-outline-primary">Follow</a></li>
-                    <li class="list-item d-flex justify-content-between">Person #5 <a href="#" class="btn btn-outline-primary">Follow</a></li>
-                </ul>
-            </div>
-        </aside>
-    </div>
-
-
+      <div class="widget-box">
+        <div class="header">Who to follow</div>
+        <ul class="list">
+          <li class="list-item d-flex justify-content-between">
+            Person #1 <a href="#" class="btn btn-outline-primary">Follow</a>
+          </li>
+          <li class="list-item d-flex justify-content-between">
+            Person #2 <a href="#" class="btn btn-outline-primary">Follow</a>
+          </li>
+          <li class="list-item d-flex justify-content-between">
+            Person #3 <a href="#" class="btn btn-outline-primary">Follow</a>
+          </li>
+          <li class="list-item d-flex justify-content-between">
+            Person #4 <a href="#" class="btn btn-outline-primary">Follow</a>
+          </li>
+          <li class="list-item d-flex justify-content-between">
+            Person #5 <a href="#" class="btn btn-outline-primary">Follow</a>
+          </li>
+        </ul>
+      </div>
+    </aside>
+  </div>
 </body>
+
 </html>
