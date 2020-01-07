@@ -25,7 +25,7 @@ class Post(models.Model):
         if (diff.total_seconds() / 3600) <= 24:
             return "{} h".format(round(diff.total_seconds() / 3600))
         else:
-            return created
+            return self.created
 
     def __str__(self):
         return self.content
@@ -52,7 +52,7 @@ class Comment(models.Model):
         if (diff.total_seconds() / 3600) <= 24:
             return "{} h".format(round(diff.total_seconds() / 3600))
         else:
-            return created
+            return self.created
 
     def __str__(self):
         return self.content

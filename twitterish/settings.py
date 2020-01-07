@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'twitterish',
     'twitterish.apps.posts',
 ]
 
@@ -56,7 +57,7 @@ ROOT_URLCONF = 'twitterish.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, "twitterish/templates")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
