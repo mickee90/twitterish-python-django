@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     'twitterish',
     'twitterish.apps.posts',
+    'twitterish.apps.profiles',
 ]
 
 MIDDLEWARE = [
@@ -113,6 +114,8 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+AUTH_USER_MODEL = 'profiles.profile'
 
 
 # Internationalization
