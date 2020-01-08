@@ -10,14 +10,40 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
   <link rel="stylesheet" href="{% static "css/main.css" %}">
+
+  <style>
+    .login-box {
+      width: 100%;
+      max-width: 330px;
+      padding: 15px;
+      margin: auto;
+    }
+  </style>
 </head>
 
 <body>
-  <div class="layout container">
+  <div class="container h-100 d-flex">
     <div class="login-box">
+    <form action="" method="POST">
+        {% csrf_token %}
 
-    </div>
+        <h1 class="title">Twitterish</h1>
+        <h3 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+
+        <label for="inputUsername" class="sr-only">Username</label>
+        <input type="text" id="inputUsername" class="form-control mb-2" placeholder="Username" required autofocus="" name="username">
+
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" class="form-control mb-2" placeholder="Password" required name="password">
+        <div class="checkbox mb-3">
+          <label>
+            <input type="checkbox" value="remember-me"> Remember me
+          </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit">Sign in</button>
+      </form>
   </div>
+</div>
 </body>
 
 </html>
