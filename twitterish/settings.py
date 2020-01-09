@@ -31,16 +31,16 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+
+    'twitterish.apps.posts',
+    'twitterish.apps.profiles',
+    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    'twitterish',
-    'twitterish.apps.posts',
-    'twitterish.apps.profiles',
 ]
 
 MIDDLEWARE = [
@@ -115,7 +115,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER_MODEL = 'profiles.profile'
+AUTH_USER_MODEL = 'profiles.Profile'
 
 
 # Internationalization

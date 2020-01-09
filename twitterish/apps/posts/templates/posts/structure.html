@@ -34,9 +34,10 @@
     </nav>
     <section class="main">
       <div class="header-box">
-        <h1>Home</h1>
+        <h1>Home {{ request.user.username }}</h1>
       </div>
       <div class="create-post-box">
+        {% if request.user.is_authenticated %}
         <form action="/posts/create" method="POST" class="create-post">
           {% csrf_token %}
           <input type="text" class="create-post form-control mb-3" placeholder="What's happening?" name="content"
@@ -52,6 +53,7 @@
             <button type="submit" class="btn btn-primary float-right">tweet</button>
           </div>
         </form>
+        {% endif %}
       </div>
       {% block content %}{% endblock %}
     </section>

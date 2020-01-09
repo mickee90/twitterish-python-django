@@ -6,5 +6,5 @@ class Profile(AbstractUser):
   #user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
   #avatar = models.ImageField(blank=True, upload_to=avatar)
 
-  def __str__(self):
-    return self.name
+  #def __str__(self):
+    #return self.name

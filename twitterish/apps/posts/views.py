@@ -9,6 +9,7 @@ from .models import Post
 def index(request):
 
     context = {
+        'user': request.user,
         'posts': Post.objects.order_by('-created')
     }
 
