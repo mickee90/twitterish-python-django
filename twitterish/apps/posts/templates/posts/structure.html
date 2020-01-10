@@ -27,6 +27,7 @@
         <li class="menu-item"><a href="#" class="nav-link">Lists</a></li>
         <li class="menu-item"><a href="#" class="nav-link">Profile</a></li>
         <li class="menu-item"><a href="#" class="nav-link">More</a></li>
+        <li class="menu-item"><a href="{% url 'logout' %}" class="nav-link">Logout</a></li>
         <li class="menu-item btn">
           <a href="#" class="btn btn-primary">Tweet</a>
         </li>
@@ -38,7 +39,7 @@
       </div>
       <div class="create-post-box">
         {% if request.user.is_authenticated %}
-        <form action="/posts/create" method="POST" class="create-post">
+        <form action="{% url 'posts:create' %}" method="POST" class="create-post">
           {% csrf_token %}
           <input type="text" class="create-post form-control mb-3" placeholder="What's happening?" name="content"
             max="255" />
