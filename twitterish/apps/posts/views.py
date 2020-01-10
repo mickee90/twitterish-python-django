@@ -1,36 +1,36 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.utils import timezone
+from django.views import generic
+from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
-
 
 from .models import Post
 
-@login_required
-def index(request):
+@method_decorator(login_required, name='dispatch')
+class IndexView(generic.ListView):
+    template_name = 'posts/list.html'
+    context_object_name = 'posts'
 
-    context = {
-        'posts': Post.objects.order_by('-created')
-    }
+    def get_queryset(self):
+        return Post.objects.order_by('-created')
 
-    return render(request, 'posts/list.html', context)
+@method_decorator(login_required, name='dispatch')
+class DetailView(generic.DetailView):
+    model = Post
+    template_name = 'posts/detail.html'
+    context_object_name = 'post'
 
-@login_required
-def detail(request, post_id):
-    
-    post = get_object_or_404(Post, pk=post_id)
+@method_decorator(login_required, name='dispatch')
+class CreateView(generic.CreateView):
+    model = Post
+    success_url = reverse_lazy('posts:index')
+    fields = ['content']
+    template_name = ''
 
-    context = {
-        'post': post
-    }
+    def post(self, request, *args, **kwargs):
+        post = Post(content=request.POST['content'], updated=timezone.now(), user_id=request.user.id)
+        post.save()
 
-    return render(request, 'posts/detail.html', context)
-
-@login_required
-def create(request):
-
-    post = Post(content=request.POST['content'], updated=timezone.now(), user_id=request.user.id)
-    post.save()
-
-    return HttpResponseRedirect(reverse('posts:index'))
+        return super(CreateView, self).post(request, *args, **kwargs)

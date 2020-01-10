@@ -1,24 +1,36 @@
 {% extends "./structure.html" %}
 
 {% block content %}
-    <div class="post">
-        <div class="retweeted"></div>
-        <div class="post-layout">
+<div class="post">
+    <div class="retweeted"></div>
+    <div class="post-layout">
         {% load static %}
         <div class="avatar-box"><img src="{% static "img/avatar_default.png" %}" alt="Avatar" class="avatar" /></div>
-            <div class="post-info">{{ post.user.first_name }} {{ post.user.last_name }} X @{{ post.user.username }} - {{ post.readable_created }}</div>
-            <div class="content">
-                {{ post.content }}
-            </div>
-            <div class="comments"><img src="{% static "img/icon_comment.png" %}" alt="comment" class="post-icon icon-comment" /> {{ post.comment_set.count }} </div>
-            <div class="retweets"><img src="{% static "img/icon_retweet.png" %}" alt="retweet" class="post-icon icon-retweet" /> {{ post.retweet_set.count }}</div>
-            <div class="likes"><img src="{% static "img/icon_like.png" %}" alt="like" class="post-icon icon-like" /> {{ post.likes }}</div>
-            <div class="share"><img src="{% static "img/icon_upload.png" %}" alt="share" class="post-icon icon-upload" /></div>
+        <div class="post-info">{{ post.user.first_name }} {{ post.user.last_name }} X @{{ post.user.username }} -
+            {{ post.readable_created }}</div>
+        <div class="content">
+            {{ post.content }}
+        </div>
+        <div class="comments">
+            <img src="{% static "img/icon_comment.png" %}" alt="comment" class="post-icon icon-comment" />
+            {{ post.comment_set.count }}
+        </div>
+        <div class="retweets">
+            <img src="{% static "img/icon_retweet.png" %}" alt="retweet" class="post-icon icon-retweet" />
+            {{ post.retweet_set.count }}
+        </div>
+        <div class="likes">
+            <img src="{% static "img/icon_like.png" %}" alt="like" class="post-icon icon-like" />
+            {{ post.likes }}
+        </div>
+        <div class="share">
+            <img src="{% static "img/icon_upload.png" %}" alt="share" class="post-icon icon-upload" />
         </div>
     </div>
-    <div class="comments">
-        {% for comment in post.comment_set.all %}
-            {{ comment.content }}
-        {% endfor %}
-    </div>
+</div>
+<div class="comments">
+    {% for comment in post.comment_set.all %}
+    {{ comment.content }}
+    {% endfor %}
+</div>
 {% endblock %}

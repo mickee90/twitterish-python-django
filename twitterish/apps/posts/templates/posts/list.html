@@ -2,42 +2,52 @@
 {% load static %}
 
 {% block content %}
-    <div class="create-post-box">
+<div class="create-post-box">
     {% if request.user.is_authenticated %}
     <form action="{% url 'posts:create' %}" method="POST" class="create-post">
         {% csrf_token %}
         <input type="text" class="create-post form-control mb-3" placeholder="What's happening?" name="content"
-        max="255" />
+            max="255" />
         <div class="toolbar d-flex justify-content-between">
-        <div class="attachments">
-            <img src="{% static "img/icon_img.png" %}" alt="icon-emoji" class="attachment-icon icon-img" />
-            <img src="{% static "img/icon_gif.png" %}" alt="icon-gif" class="attachment-icon icon-gif" />
-            <img src="{% static "img/icon_statistic.png" %}" alt="icon-statistic"
-            class="attachment-icon icon-statistic" />
-            <img src="{% static "img/icon_emoji.png" %}" alt="icon-emoji" class="attachment-icon icon-emoji" />
-        </div>
-        <button type="submit" class="btn btn-primary float-right">tweet</button>
+            <div class="attachments">
+                <img src="{% static "img/icon_img.png" %}" alt="icon-emoji" class="attachment-icon icon-img" />
+                <img src="{% static "img/icon_gif.png" %}" alt="icon-gif" class="attachment-icon icon-gif" />
+                <img src="{% static "img/icon_statistic.png" %}" alt="icon-statistic"
+                    class="attachment-icon icon-statistic" />
+                <img src="{% static "img/icon_emoji.png" %}" alt="icon-emoji" class="attachment-icon icon-emoji" />
+            </div>
+            <button type="submit" class="btn btn-primary float-right">tweet</button>
         </div>
     </form>
     {% endif %}
-    </div>
-    <div class="posts">
-        {% for post in posts %}
-            <div class="post">
-                <div class="retweeted"></div>
-                <div class="post-layout">
-                {% load static %}
-                <div class="avatar-box"><img src="{% static "img/avatar_default.png" %}" alt="Avatar" class="avatar" /></div>
-                    <div class="post-info">{{ post.user.first_name }} {{ post.user.last_name }} X @{{ post.user.username }} - {{ post.readable_created }}</div>
-                    <div class="content">
-                        {{ post.content }}
-                    </div>
-                        <div class="comments"><img src="{% static "img/icon_comment.png" %}" alt="comment" class="post-icon icon-comment" /> {{ post.comment_set.count }} </div>
-                        <div class="retweets"><img src="{% static "img/icon_retweet.png" %}" alt="retweet" class="post-icon icon-retweet" /> {{ post.retweet_set.count }}</div>
-                        <div class="likes"><img src="{% static "img/icon_like.png" %}" alt="like" class="post-icon icon-like" /> {{ post.likes }}</div>
-                        <div class="share"><img src="{% static "img/icon_upload.png" %}" alt="share" class="post-icon icon-upload" /></div>
-                    </div>
-                </div>
-        {% endfor %}
-    </div>
+</div>
+<div class="posts">
+    {% for post in posts %}
+    <a href="{% url 'posts:detail' post.id %}" class="post">
+        <div class="retweeted"></div>
+        <div class="post-layout">
+            {% load static %}
+            <div class=" avatar-box"><img src="{% static "img/avatar_default.png" %}" alt="Avatar" class="avatar" />
+            </div>
+            <div class="post-info">{{ post.user.first_name }} {{ post.user.last_name }} X @{{ post.user.username }}
+                -
+                {{ post.readable_created }}</div>
+            <div class="content">
+                {{ post.content }}
+            </div>
+            <div class="comments"><img src="{% static "img/icon_comment.png" %}" alt="comment"
+                    class="post-icon icon-comment" />
+                {{ post.comment_set.count }} </div>
+            <div class="retweets"><img src="{% static "img/icon_retweet.png" %}" alt="retweet"
+                    class="post-icon icon-retweet" />
+                {{ post.retweet_set.count }}</div>
+            <div class="likes"><img src="{% static "img/icon_like.png" %}" alt="like" class="post-icon icon-like" />
+                {{ post.likes }}</div>
+            <div class="share"><img src="{% static "img/icon_upload.png" %}" alt="share"
+                    class="post-icon icon-upload" /></div>
+
+        </div>
+    </a>
+    {% endfor %}
+</div>
 {% endblock %}
