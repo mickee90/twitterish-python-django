@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.utils import timezone
@@ -11,11 +11,21 @@ from .models import Post
 def index(request):
 
     context = {
-        'user': request.user,
         'posts': Post.objects.order_by('-created')
     }
 
     return render(request, 'posts/list.html', context)
+
+@login_required
+def detail(request, post_id):
+    
+    post = get_object_or_404(Post, pk=post_id)
+
+    context = {
+        'post': post
+    }
+
+    return render(request, 'posts/detail.html', context)
 
 @login_required
 def create(request):

@@ -39,11 +39,13 @@ class Post(models.Model):
 
 class Comment(models.Model):
     content = models.CharField(max_length=255)
-    """ user = models.ForeignKey(
+    user = models.ForeignKey(
         to=settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE) """
+        on_delete=models.CASCADE,
+        null=True, 
+        blank=True)
     post = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
+        Post,
         on_delete=models.CASCADE
     )
     likes = models.IntegerField(default=0)
@@ -65,9 +67,11 @@ class Comment(models.Model):
 
 
 class Retweet(models.Model):
-    """ user = models.ForeignKey(
+    user = models.ForeignKey(
         to=settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE) """
+        on_delete=models.CASCADE,
+        null=True, 
+        blank=True)
     post = models.ForeignKey(
         Post,
         on_delete=models.CASCADE

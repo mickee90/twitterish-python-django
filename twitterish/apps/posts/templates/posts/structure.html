@@ -37,25 +37,6 @@
       <div class="header-box">
         <h1>Home {{ request.user.username }}</h1>
       </div>
-      <div class="create-post-box">
-        {% if request.user.is_authenticated %}
-        <form action="{% url 'posts:create' %}" method="POST" class="create-post">
-          {% csrf_token %}
-          <input type="text" class="create-post form-control mb-3" placeholder="What's happening?" name="content"
-            max="255" />
-          <div class="toolbar d-flex justify-content-between">
-            <div class="attachments">
-              <img src="{% static "img/icon_img.png" %}" alt="icon-emoji" class="attachment-icon icon-img" />
-              <img src="{% static "img/icon_gif.png" %}" alt="icon-gif" class="attachment-icon icon-gif" />
-              <img src="{% static "img/icon_statistic.png" %}" alt="icon-statistic"
-                class="attachment-icon icon-statistic" />
-              <img src="{% static "img/icon_emoji.png" %}" alt="icon-emoji" class="attachment-icon icon-emoji" />
-            </div>
-            <button type="submit" class="btn btn-primary float-right">tweet</button>
-          </div>
-        </form>
-        {% endif %}
-      </div>
       {% block content %}{% endblock %}
     </section>
     <aside class="widgets pl-3">
