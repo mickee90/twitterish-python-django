@@ -20,7 +20,7 @@ def index(request):
 @login_required
 def create(request):
 
-    post = Post(content=request.POST['content'], updated=timezone.now())
+    post = Post(content=request.POST['content'], updated=timezone.now(), user_id=request.user.id)
     post.save()
 
     return HttpResponseRedirect(reverse('posts:index'))

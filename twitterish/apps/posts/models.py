@@ -11,7 +11,10 @@ class Post(models.Model):
     content = models.CharField(max_length=255)
     user = models.ForeignKey(
         to=settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE)
+        on_delete=models.CASCADE,
+        null=True, 
+        blank=True
+        )
     likes = models.IntegerField(default=0)
     updated = models.DateTimeField(
         auto_now=True,

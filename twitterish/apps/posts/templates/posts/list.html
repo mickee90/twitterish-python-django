@@ -9,7 +9,7 @@
                 <div class="post-layout">
                 {% load static %}
                 <div class="avatar-box"><img src="{% static "img/avatar_default.png" %}" alt="Avatar" class="avatar" /></div>
-                    <div class="post-info">USER X @user1 - {{ post.readable_created }}</div>
+                    <div class="post-info">{{ post.user.first_name }} {{ post.user.last_name }} X @{{ post.user.username }} - {{ post.readable_created }}</div>
                     <div class="content">
                         {{ post.content }}
                     </div>
