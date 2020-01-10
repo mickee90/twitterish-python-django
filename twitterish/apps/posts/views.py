@@ -17,7 +17,7 @@ def index(request):
 
     return render(request, 'posts/list.html', context)
 
-
+@login_required
 def create(request):
 
     post = Post(content=request.POST['content'], updated=timezone.now())

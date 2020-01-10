@@ -1,14 +1,17 @@
 import datetime
 
+from django.conf import settings
 from django.db import models
 from django.utils import timezone
+
+from ..profiles.models import Profile
 
 
 class Post(models.Model):
     content = models.CharField(max_length=255)
-    """ user = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE) """
+    user = models.ForeignKey(
+        to=settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE)
     likes = models.IntegerField(default=0)
     updated = models.DateTimeField(
         auto_now=True,
@@ -34,10 +37,10 @@ class Post(models.Model):
 class Comment(models.Model):
     content = models.CharField(max_length=255)
     """ user = models.ForeignKey(
-        User,
+        to=settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE) """
     post = models.ForeignKey(
-        Post,
+        settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE
     )
     likes = models.IntegerField(default=0)
@@ -60,9 +63,8 @@ class Comment(models.Model):
 
 class Retweet(models.Model):
     """ user = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE
-    ) """
+        to=settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE) """
     post = models.ForeignKey(
         Post,
         on_delete=models.CASCADE
