@@ -1,0 +1,89 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Twitterish</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+  <link rel="stylesheet" href="{% static "css/main.css" %}">
+
+  <style>
+    .register-box {
+      width: 50%;
+      padding: 15px;
+      margin: auto;
+    }
+
+    .error-box>.errorlist {
+      margin: 20px 0px;
+      color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container h-100 d-flex">
+    <div class="register-box">
+      <h2>SignUp Page</h2>
+
+      <form method="post">
+        {% csrf_token %}
+
+        {% if error_message %}
+        <strong>{{ error_message }}</strong>
+        {% endif %}
+
+        <div class="error-box">
+          {{ form.errors }}
+          {{ form.non_field_errors }}
+        </div>
+
+        <div class="form-group">
+          <label for="username_input">Username: </label>
+          <input type="text" name="username" id="username_input" class="form-control" required autofocus>
+          <span class="helptext">Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</span>
+        </div>
+        <div class="form-group">
+          <label for="first_name_input">First name:</label>
+          <input type="text" name="first_name" maxlength="50" class="form-control" required id="first_name_input">
+        </div>
+        <div class="form-group">
+          <label for="last_name_input">Last name:</label>
+          <input type="text" name="last_name" maxlength="50" class="form-control" required id="last_name_input">
+        </div>
+        <div class="form-group">
+          <label for="email_input">Email:</label>
+          <input type="email" name="email" maxlength="254" class="form-control" required id="email_input">
+          <span class="helptext">Enter a valid email address</span>
+        </div>
+
+
+
+        <div class="form-group">
+          <label for="password1_input">Password:</label>
+          <input type="password" name="password1" autocomplete="new-password" class="form-control" required
+            id="password1_input">
+        </div>
+        <ul>
+          <li>Your password can’t be too similar to your other personal information.</li>
+          <li>Your password must contain at least 8 characters.</li>
+          <li>Your password can’t be a commonly used password.</li>
+          <li>Your password can’t be entirely numeric.</li>
+        </ul>
+        <div class="form-group">
+          <label for="password2_input">Password:</label>
+          <input type="password" name="password2" autocomplete="new-password" class="form-control" required
+            id="password2_input">
+          <span class="helptext">Enter the same password as before, for verification.</span>
+        </div>
+        <button type="submit" class="btn btn-primary">Register</button>
+      </form>
+    </div>
+  </div>
+</body>
+
+</html>

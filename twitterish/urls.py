@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.urls import include, path
 
+from .apps.profiles import views
+
 urlpatterns = [
     path('', include('twitterish.apps.posts.urls')),
     path('admin/', admin.site.urls),
@@ -25,5 +27,9 @@ urlpatterns = [
         auth_views.LoginView.as_view(template_name='auth/login.html'),
         name='login'
     ),
-    path('profile/', include('django.contrib.auth.urls')),
+    path(
+        'register',
+        views.ProfileSignUpView.as_view(),
+        name='register'
+    ),
 ]
