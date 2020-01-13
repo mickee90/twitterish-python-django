@@ -32,4 +32,5 @@ urlpatterns = [
         views.ProfileSignUpView.as_view(),
         name='register'
     ),
+    path('profile/', include('django.contrib.auth.urls')),
 ]

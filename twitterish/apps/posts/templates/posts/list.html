@@ -24,7 +24,11 @@
 <div class="posts">
     {% for post in posts %}
     <a href="{% url 'posts:detail' post.id %}" class="post">
-        <div class="retweeted"></div>
+        <div class="retweeted">
+            {% if post.is_retweet %}
+            {{ post.user.first_name }} retweeted
+            {% endif %}
+        </div>
         <div class="post-layout">
             {% load static %}
             <div class=" avatar-box"><img src="{% static "img/avatar_default.png" %}" alt="Avatar" class="avatar" />

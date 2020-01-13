@@ -5,8 +5,9 @@ from django.utils import timezone
 from django.views import generic
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+from itertools import chain
 
-from .models import Post
+from .models import Post, Retweet
 
 @method_decorator(login_required, name='dispatch')
 class IndexView(generic.ListView):
@@ -14,7 +15,13 @@ class IndexView(generic.ListView):
     context_object_name = 'posts'
 
     def get_queryset(self):
-        return Post.objects.order_by('-created')
+        posts = Post.objects.order_by('-created')
+        retweets = Retweet.objects.select_related('post').order_by('-created')
+
+        full_list = list(chain(posts, retweets))
+        full_ordered_list = sorted(full_list, key=lambda k: k.created, reverse=True)
+
+        return full_ordered_list
 
 @method_decorator(login_required, name='dispatch')
 class DetailView(generic.DetailView):

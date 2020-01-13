@@ -32,6 +32,9 @@ class Post(models.Model):
             return "{} h".format(round(diff.total_seconds() / 3600))
         else:
             return self.created
+    
+    def is_retweet(self):
+        return False
 
     def __str__(self):
         return self.content
@@ -88,6 +91,9 @@ class Retweet(models.Model):
             return "{} h".format(round(diff.total_seconds() / 3600))
         else:
             return created
+    
+    def is_retweet(self):
+        return True
 
     def __str__(self):
         return self.post.content
