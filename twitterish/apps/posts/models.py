@@ -90,7 +90,7 @@ class Retweet(models.Model):
         if (diff.total_seconds() / 3600) <= 24:
             return "{} h".format(round(diff.total_seconds() / 3600))
         else:
-            return created
+            return self.created
     
     def is_retweet(self):
         return True

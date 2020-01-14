@@ -2,7 +2,11 @@
 
 {% block content %}
 <div class="post">
-    <div class="retweeted"></div>
+    <div class="retweeted">
+        {% if request.GET.retweeted %}
+        {{ post.user.first_name }} retweeted
+        {% endif %}
+    </div>
     <div class="post-layout">
         {% load static %}
         <div class="avatar-box"><img src="{% static "img/avatar_default.png" %}" alt="Avatar" class="avatar" /></div>
