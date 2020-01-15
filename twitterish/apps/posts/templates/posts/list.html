@@ -23,7 +23,7 @@
 </div>
 <div class="posts">
     {% for post in posts %}
-    <a href="{% url 'posts:detail' post.id %}{% if post.is_retweet %}?retweeted=1{% endif %}" class="post">
+    <div class="post">
         <div class="retweeted">
             {% if post.is_retweet %}
             {{ post.user.first_name }} retweeted
@@ -40,36 +40,39 @@
                 <span class="date"> - {{ post.readable_created }}</span>
             </div>
             <div class="content">
-                {% if post.is_retweet %}
-                {{ post.post.content }}
-                {% else %}
-                {{ post.content }}
-                {% endif %}
+                <a href="{% url 'posts:detail' post.id %}{% if post.is_retweet %}?retweeted=1{% endif %}">
+                    {{ post.content }}
+                </a>
             </div>
             <div class="comments">
-                <a href="#" class="icon-link modal-link" data-modal_type="comment">
-                    <img src="{% static "img/icon_comment.png" %}" alt="comment" class="post-icon icon-comment" />
-                </a>
-                {{ post.comment_set.count }}
+                <a href="{% url 'posts:add_comment' post.id %}"
+                    class="icon-link modal-link icon-comment tweet-icon {% if post.has_comments %}active{% endif %}"
+                    data-modal_type="comment"></a>
+                <span class="counter">
+                    {{ post.comment_set.count }}
+                </span>
             </div>
             <div class="retweets">
-                <a href="#" class="icon-link">
-                    <img src="{% static "img/icon_retweet.png" %}" alt="retweet" class="post-icon icon-retweet" />
-                </a>
-                {{ post.retweet_set.count }}
+                <a href="{% url 'posts:create_retweet' post.id %}"
+                    class="icon-link modal-link icon-retweet tweet-icon {% if post.has_retweets %}active{% endif %}"
+                    data-modal_type="retweet"></a>
+                <span class="counter">
+                    {{ post.retweet_set.count }}
+                </span>
             </div>
             <div class="likes">
-                <a href="#" class="icon-link">
-                    <img src="{% static "img/icon_like.png" %}" alt="like" class="post-icon icon-like" />
-                </a>
-                {{ post.likes }}
+                <a href="{% url 'posts:add_like' post.id %}"
+                    class="icon-link modal-link icon-like tweet-icon {% if post.has_likes %}active{% endif %}"
+                    data-modal_type="like"></a>
+                <span class="counter">
+                    {{ post.likes }}
+                </span>
             </div>
             <div class="share">
                 <img src="{% static "img/icon_upload.png" %}" alt="share" class="post-icon icon-upload" />
             </div>
-
         </div>
-    </a>
+    </div>
     {% endfor %}
 </div>
 {% endblock %}

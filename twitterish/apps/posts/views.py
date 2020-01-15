@@ -17,8 +17,12 @@ class IndexView(generic.ListView):
     def get_queryset(self):
         posts = Post.objects.order_by('-created')
         retweets = Retweet.objects.select_related('post').order_by('-created')
+        retweet_posts = []
+        for retweet in retweets:
+            retweet.post.set_is_retweet()
+            retweet_posts.append(retweet.post)
 
-        full_list = list(chain(posts, retweets))
+        full_list = list(chain(posts, retweet_posts))
         full_ordered_list = sorted(full_list, key=lambda k: k.created, reverse=True)
 
         return full_ordered_list
@@ -41,3 +45,28 @@ class CreateView(generic.CreateView):
         post.save()
 
         return super(CreateView, self).post(request, *args, **kwargs)
+
+@method_decorator(login_required, name='dispatch')
+class AddLikeView(generic.DetailView):
+
+    def get(self, request, *args, **kwargs):
+        post = Post.objects.get(pk=self.kwargs.get('pk'))
+        post.likes = post.likes+1
+        post.save()
+
+        return HttpResponseRedirect(reverse('posts:index'))
+
+@method_decorator(login_required, name='dispatch')
+class CreateRetweetView(generic.DetailView):
+
+    def get(self, request, *args, **kwargs):
+        retweet = Retweet(post_id=self.kwargs.get('pk'), user_id=request.user.id)
+        retweet.save()
+
+        return HttpResponseRedirect(reverse('posts:index'))
+
+@method_decorator(login_required, name='dispatch')
+class AddCommentView(generic.DetailView):
+    model = Post
+    template_name = 'comments/detail.html'
+    context_object_name = 'post'

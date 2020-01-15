@@ -121,6 +121,42 @@ ul, li {
 .share { grid-area: 3 / 5 / 4 / 6; }
 .more { grid-area: 3 / 6 / 4 / 7; }
 
+.tweet-icon {
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.tweet-icon:hover {
+    cursor: pointer;
+}
+
+.icon-comment {
+    background-image: url('/static/img/icon_comment.png');
+}
+
+.icon-comement.active, .icon-comment:hover {
+    background-image: url('/static/img/icon_comment_active.png');
+}
+
+.icon-retweet {
+    background-image: url('/static/img/icon_retweet.png');
+}
+
+.icon-retweet.active, .icon-retweet:hover {
+    background-image: url('/static/img/icon_retweet_active.png');
+}
+
+.icon-like {
+    background-image: url('/static/img/icon_like.png');
+}
+
+.icon-like.active, .icon-like:hover {
+    background-image: url('/static/img/icon_like_active.png');
+}
+
 .avatar {
     margin: 0 auto;
     display: block;
