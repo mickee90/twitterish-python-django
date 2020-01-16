@@ -1,4 +1,6 @@
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 
 from . import views
 
@@ -9,5 +11,5 @@ urlpatterns = [
     path('create', views.CreateView.as_view(), name='create'),
     path('posts/add_like/<int:pk>/', views.AddLikeView.as_view(), name='add_like'),
     path('posts/create_retweet/<int:pk>/', views.CreateRetweetView.as_view(), name='create_retweet'),
-    path('posts/add_comment/<int:pk>/', views.AddCommentView.as_view(), name='add_comment')
+    path('posts/store_comment/<int:pk>/', views.StoreCommentView.as_view(), name='store_comment')
 ]

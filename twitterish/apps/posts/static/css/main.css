@@ -106,6 +106,22 @@ ul, li {
     color: #8899a6;
 }
 
+.create-post-box-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+}
+
+.create-post-box-avatar {
+    grid-area: 1 / 1 / 2 / 2;
+}
+
+.create-post-box-content {
+    grid-area: 1 / 2 / 2 / 7;
+}
+
 .avatar-box { grid-area: 1 / 1 / 4 / 2; }
 .post-info { 
     font-size: 15px;
@@ -155,6 +171,10 @@ ul, li {
 
 .icon-like.active, .icon-like:hover {
     background-image: url('/static/img/icon_like_active.png');
+}
+
+.icon-share {
+    background-image: url('/static/img/icon_upload.png');
 }
 
 .avatar {

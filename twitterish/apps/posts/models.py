@@ -45,6 +45,9 @@ class Post(models.Model):
 
     def has_likes(self):
         return self.likes > 0
+    
+    def get_comments(self):
+        return self.comment_set.all().order_by('-created')
 
     def __str__(self):
         return self.content

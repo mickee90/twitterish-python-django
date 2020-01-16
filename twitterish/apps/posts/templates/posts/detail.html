@@ -1,4 +1,4 @@
-{% extends "./structure.html" %}
+{% extends "structure.html" %}
 
 {% block content %}
 <div class="post">
@@ -16,25 +16,86 @@
             {{ post.content }}
         </div>
         <div class="comments">
-            <img src="{% static "img/icon_comment.png" %}" alt="comment" class="post-icon icon-comment" />
-            {{ post.comment_set.count }}
+            <a href="{% url 'posts:detail' post.id %}"
+                class="icon-link modal-link icon-comment tweet-icon {% if post.has_comments %}active{% endif %}"
+                data-modal_type="comment"></a>
+            <span class="counter">
+                {{ post.comment_set.count }}
+            </span>
         </div>
         <div class="retweets">
-            <img src="{% static "img/icon_retweet.png" %}" alt="retweet" class="post-icon icon-retweet" />
-            {{ post.retweet_set.count }}
+            <a href="{% url 'posts:create_retweet' post.id %}"
+                class="icon-link modal-link icon-retweet tweet-icon {% if post.has_retweets %}active{% endif %}"
+                data-modal_type="retweet"></a>
+            <span class="counter">
+                {{ post.retweet_set.count }}
+            </span>
         </div>
         <div class="likes">
-            <img src="{% static "img/icon_like.png" %}" alt="like" class="post-icon icon-like" />
-            {{ post.likes }}
+            <a href="{% url 'posts:add_like' post.id %}"
+                class="icon-link modal-link icon-like tweet-icon {% if post.has_likes %}active{% endif %}"
+                data-modal_type="like"></a>
+            <span class="counter">
+                {{ post.likes }}
+            </span>
         </div>
         <div class="share">
-            <img src="{% static "img/icon_upload.png" %}" alt="share" class="post-icon icon-upload" />
+            <div class="tweet-icon icon-share"></div>
         </div>
     </div>
 </div>
+<div class="comment-box">
+    <form action="{% url 'posts:store_comment' post.id %}" method="POST" class="store-comment">
+        {% csrf_token %}
+        <input type="text" class="store-comment form-control mb-3" placeholder="Tweet your reply" name="content"
+            max="255" />
+        <div class="toolbar">
+            <button type="submit" class="btn btn-primary float-right">Reply</button>
+        </div>
+    </form>
+</div>
 <div class="comments">
-    {% for comment in post.comment_set.all %}
-    {{ comment.content }}
+    {% for comment in post.get_comments %}
+    <div class="post">
+        <div class="post-layout">
+            {% load static %}
+            <div class="avatar-box"><img src="{% static "img/avatar_default.png" %}" alt="Avatar" class="avatar" />
+            </div>
+            <div class="post-info">{{ comment.user.first_name }} {{ comment.user.last_name }} X
+                @{{ comment.user.username }} -
+                {{ comment.readable_created }}</div>
+            <div class="content">
+                {{ comment.content }}
+            </div>
+            <div class="comments">
+                <a href="{% url 'posts:detail' post.id %}"
+                    class="icon-link modal-link icon-comment tweet-icon {% if post.has_comments %}active{% endif %}"
+                    data-modal_type="comment"></a>
+                <span class="counter">
+                    {{ comment.comment_set.count }}
+                </span>
+            </div>
+            <div class="retweets">
+                <a href="{% url 'posts:create_retweet' post.id %}"
+                    class="icon-link modal-link icon-retweet tweet-icon {% if post.has_retweets %}active{% endif %}"
+                    data-modal_type="retweet"></a>
+                <span class="counter">
+                    {{ comment.retweet_set.count }}
+                </span>
+            </div>
+            <div class="likes">
+                <a href="{% url 'posts:add_like' post.id %}"
+                    class="icon-link modal-link icon-like tweet-icon {% if post.has_likes %}active{% endif %}"
+                    data-modal_type="like"></a>
+                <span class="counter">
+                    {{ comment.likes }}
+                </span>
+            </div>
+            <div class="share">
+                <div class="tweet-icon icon-share"></div>
+            </div>
+        </div>
+    </div>
     {% endfor %}
 </div>
 {% endblock %}

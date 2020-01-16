@@ -7,7 +7,7 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from itertools import chain
 
-from .models import Post, Retweet
+from .models import Post, Retweet, Comment
 
 @method_decorator(login_required, name='dispatch')
 class IndexView(generic.ListView):
@@ -44,7 +44,7 @@ class CreateView(generic.CreateView):
         post = Post(content=request.POST['content'], updated=timezone.now(), user_id=request.user.id)
         post.save()
 
-        return super(CreateView, self).post(request, *args, **kwargs)
+        return HttpResponseRedirect(reverse('posts:index'))
 
 @method_decorator(login_required, name='dispatch')
 class AddLikeView(generic.DetailView):
@@ -66,7 +66,13 @@ class CreateRetweetView(generic.DetailView):
         return HttpResponseRedirect(reverse('posts:index'))
 
 @method_decorator(login_required, name='dispatch')
-class AddCommentView(generic.DetailView):
-    model = Post
-    template_name = 'comments/detail.html'
-    context_object_name = 'post'
+class StoreCommentView(generic.DetailView):
+    model = Comment
+    template_name = ''
+    fields = ['content']
+
+    def post(self, request, *args, **kwargs):
+        comment = Comment(content=request.POST['content'], user_id=request.user.id, post_id=self.kwargs.get('pk'))
+        comment.save()
+
+        return HttpResponseRedirect(reverse('posts:detail', args=[self.kwargs.get('pk')]))

@@ -1,0 +1,15 @@
+{% extends "structure.html" %}
+
+{% block content %}
+<div class="profile">
+    <div class="profile-header">
+        <div class="top-bar-grid">
+            <a href="/" class="back-btn"></a>
+            <div class="name-box">{{ request.user.first_name }} {{ request.user.last_name }}</div>
+            <div class="tweet-counter-box">
+                {{ request.user.tweet_counter }} tweets
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

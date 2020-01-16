@@ -1,4 +1,4 @@
-{% extends "./structure.html" %}
+{% extends "structure.html" %}
 {% load static %}
 
 {% block content %}
@@ -6,17 +6,26 @@
     {% if request.user.is_authenticated %}
     <form action="{% url 'posts:create' %}" method="POST" class="create-post">
         {% csrf_token %}
-        <input type="text" class="create-post form-control mb-3" placeholder="What's happening?" name="content"
-            max="255" />
-        <div class="toolbar d-flex justify-content-between">
-            <div class="attachments">
-                <img src="{% static "img/icon_img.png" %}" alt="icon-emoji" class="attachment-icon icon-img" />
-                <img src="{% static "img/icon_gif.png" %}" alt="icon-gif" class="attachment-icon icon-gif" />
-                <img src="{% static "img/icon_statistic.png" %}" alt="icon-statistic"
-                    class="attachment-icon icon-statistic" />
-                <img src="{% static "img/icon_emoji.png" %}" alt="icon-emoji" class="attachment-icon icon-emoji" />
+
+        <div class="create-post-box-grid">
+            <div class="create-post-box-avatar">
+                <img src="{{ user.get_avatar }}" alt="Avatar" class="avatar" />
             </div>
-            <button type="submit" class="btn btn-primary float-right">tweet</button>
+            <div class="create-post-box-content">
+                <input type="text" class="create-post form-control mb-3" placeholder="What's happening?" name="content"
+                    max="255" />
+                <div class="toolbar d-flex justify-content-between">
+                    <div class="attachments">
+                        <img src="{% static "img/icon_img.png" %}" alt="icon-emoji" class="attachment-icon icon-img" />
+                        <img src="{% static "img/icon_gif.png" %}" alt="icon-gif" class="attachment-icon icon-gif" />
+                        <img src="{% static "img/icon_statistic.png" %}" alt="icon-statistic"
+                            class="attachment-icon icon-statistic" />
+                        <img src="{% static "img/icon_emoji.png" %}" alt="icon-emoji"
+                            class="attachment-icon icon-emoji" />
+                    </div>
+                    <button type="submit" class="btn btn-primary float-right">tweet</button>
+                </div>
+            </div>
         </div>
     </form>
     {% endif %}
@@ -32,7 +41,7 @@
         <div class="post-layout">
             {% load static %}
             <div class="avatar-box">
-                <img src="{% static "img/avatar_default.png" %}" alt="Avatar" class="avatar" />
+                <img src="{{ user.get_avatar }}" alt="Avatar" class="avatar" />
             </div>
             <div class="post-info">
                 <span class="name">{{ post.user.first_name }} {{ post.user.last_name }}</span>
@@ -45,7 +54,7 @@
                 </a>
             </div>
             <div class="comments">
-                <a href="{% url 'posts:add_comment' post.id %}"
+                <a href="{% url 'posts:detail' post.id %}"
                     class="icon-link modal-link icon-comment tweet-icon {% if post.has_comments %}active{% endif %}"
                     data-modal_type="comment"></a>
                 <span class="counter">
@@ -69,7 +78,7 @@
                 </span>
             </div>
             <div class="share">
-                <img src="{% static "img/icon_upload.png" %}" alt="share" class="post-icon icon-upload" />
+                <div class="tweet-icon icon-share"></div>
             </div>
         </div>
     </div>
