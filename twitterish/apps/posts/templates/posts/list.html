@@ -2,6 +2,9 @@
 {% load static %}
 
 {% block content %}
+<div class="header-box">
+    <h1>Home {{ request.user.username }}</h1>
+</div>
 <div class="create-post-box">
     {% if request.user.is_authenticated %}
     <form action="{% url 'posts:create' %}" method="POST" class="create-post">

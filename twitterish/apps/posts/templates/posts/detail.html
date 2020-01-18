@@ -1,6 +1,9 @@
 {% extends "structure.html" %}
 
 {% block content %}
+<div class="header-box">
+    <h1>Home {{ request.user.username }}</h1>
+</div>
 <div class="post">
     <div class="retweeted">
         {% if request.GET.retweeted %}

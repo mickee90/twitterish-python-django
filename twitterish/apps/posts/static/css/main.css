@@ -106,6 +106,61 @@ ul, li {
     color: #8899a6;
 }
 
+.top-bar-grid {
+    margin-bottom: 20px;
+}
+
+.back-btn {
+    width: 20px;
+    height: 20px;
+    display: block;
+    float: left;
+    background-image: url('/static/img/btn_back_blue.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin: 10px 20px;
+}
+
+.name-box {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.tweet-counter-box {
+    color: #8899a6;
+    font-size: 14px;
+}
+
+.profile-summary-layout {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+}
+
+.profile-summary-avatar {
+    grid-area: 1 / 1 / 2 / 2;
+    position: relative;
+}
+
+.profile-summary-avatar .avatar {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.profile-summary-box {
+    grid-area: 1 / 2 / 2 / 5;
+}
+
+.profile-summary-btns {
+    grid-area: 1 / 5 / 2 / 6;
+}
+
 .create-post-box-grid {
     display: grid;
     grid-template-columns: repeat(6, 1fr);

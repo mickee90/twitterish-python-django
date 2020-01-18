@@ -4,9 +4,6 @@ from django.conf import settings
 from django.db import models
 from django.utils import timezone
 
-from ..profiles.models import Profile
-
-
 class Post(models.Model):
     is_retweet = False
     content = models.CharField(max_length=255)

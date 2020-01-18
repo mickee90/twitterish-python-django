@@ -23,6 +23,7 @@ from .apps.profiles import views
 
 urlpatterns = [
     path('', include('twitterish.apps.posts.urls')),
+    path('', include('twitterish.apps.profiles.urls')),
     path('admin/', admin.site.urls),
     path(
         'login/',

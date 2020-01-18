@@ -1,4 +1,5 @@
 {% extends "structure.html" %}
+{% load static %}
 
 {% block content %}
 <div class="profile">
@@ -8,6 +9,23 @@
             <div class="name-box">{{ request.user.first_name }} {{ request.user.last_name }}</div>
             <div class="tweet-counter-box">
                 {{ request.user.tweet_counter }} tweets
+            </div>
+        </div>
+        <div class="profile-summary-layout">
+            <div class="profile-summary-avatar">
+                <img src="{{ user.get_avatar }}" alt="Avatar" class="avatar" />
+            </div>
+            <div class="profile-summary-box">
+                <div class="name">{{ request.user.first_name }} {{ request.user.last_name }}</div>
+                <div class="username">@{{ request.user.username }}</div>
+                <div class="joined">Joined {{ request.user.date_joined }}</div>
+                <div class="following-box">
+                    <span class="following"><b>39</b> following</span>
+                    <span class="followers"><b>12</b> followers</span>
+                </div>
+            </div>
+            <div class="profile-summary-btns">
+                <a href="#" class="btn btn-outline-primary">Edit profile</a>
             </div>
         </div>
     </div>
