@@ -106,8 +106,29 @@ ul, li {
     color: #8899a6;
 }
 
+.profile-tabs {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 1fr;
+    margin: 10px 0px;
+}
+
+.profile-tabs .tab {
+    text-align: center;
+    line-height: 50px;
+    border-bottom: 3px solid #263340;
+}
+
+.profile-tabs .tab.active, .profile-tabs .tab:hover {
+    border-bottom: 3px solid #1da1f2;
+    color: #1da1f2;
+    cursor: pointer;
+}
+
 .top-bar-grid {
-    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 10px solid #263340;
+    margin-bottom: 10px;
 }
 
 .back-btn {

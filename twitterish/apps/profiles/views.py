@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 
 from .forms import ProfileSignUpForm
 from .models import Profile
+from ..posts.models import Post
 
 
 class ProfileSignUpView(CreateView):
@@ -26,3 +27,9 @@ class DetailView(DetailView):
   model = Profile
   template_name = 'profiles/detail.html'
   slug_field = 'username'
+
+  def get_context_data(self, **kwargs):
+    context = super().get_context_data(**kwargs)
+    context['posts'] = Post.objects.filter(user_id=kwargs['object'].id)
+
+    return context
